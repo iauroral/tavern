@@ -16,7 +16,7 @@ import { CoreInterceptor } from './net/core.interceptor';
     HttpClientModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: CoreInterceptor}
+    {provide: HTTP_INTERCEPTORS, useClass: CoreInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
