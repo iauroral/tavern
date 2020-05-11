@@ -12,4 +12,8 @@ export class AuthService {
   login(credentials: any): Observable<void> {
     return this.httpClient.post<void>('user/login', credentials);
   }
+
+  logout(): Observable<void> {
+    return this.httpClient.get<void>('user/logout');
+  }
 }
