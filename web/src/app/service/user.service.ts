@@ -13,4 +13,12 @@ export class UserService {
   me(): Observable<User> {
     return this.httpClient.get<User>('user/me');
   }
+
+  employee(): Observable<Array<User>> {
+    return this.httpClient.get<Array<User>>('user/employee');
+  }
+
+  customer(): Observable<Array<User>> {
+    return this.httpClient.get<Array<User>>('user/customer');
+  }
 }
