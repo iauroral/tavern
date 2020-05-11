@@ -5,11 +5,7 @@
   "projects": {
     "web": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "less"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -28,11 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/ajv/dist/ajv.bundle.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -69,8 +63,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "web:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "web:build"
           },
           "configurations": {
             "production": {
@@ -96,11 +89,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/ajv/dist/ajv.bundle.js"
-            ]
+            "scripts": []
           }
         },
         "lint": {
@@ -129,43 +120,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "web",
-  "schematics": {
-    "ng-alain:module": {
-      "routing": true,
-      "spec": false
-    },
-    "ng-alain:list": {
-      "spec": false
-    },
-    "ng-alain:edit": {
-      "spec": false,
-      "modal": true
-    },
-    "ng-alain:view": {
-      "spec": false,
-      "modal": true
-    },
-    "ng-alain:curd": {
-      "spec": false
-    },
-    "@schematics/angular:module": {
-      "routing": true,
-      "spec": false
-    },
-    "@schematics/angular:component": {
-      "spec": false,
-      "flat": false,
-      "inlineStyle": true,
-      "inlineTemplate": false
-    },
-    "@schematics/angular:directive": {
-      "spec": false
-    },
-    "@schematics/angular:service": {
-      "spec": false
-    }
-  }
+    }},
+  "defaultProject": "web"
 }
