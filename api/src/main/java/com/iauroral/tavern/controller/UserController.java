@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping("user")
@@ -41,5 +42,15 @@ public class UserController {
     public User me() {
         String username = (String) httpSession.getAttribute(SessionKey);
         return userService.findUserByUsername(username);
+    }
+
+    @GetMapping("employee")
+    public List<User> employee() {
+        return userService.findAllStaff();
+    }
+
+    @GetMapping("customer")
+    public List<User> customer() {
+        return userService.findAllCustom();
     }
 }
