@@ -2,6 +2,7 @@ package com.iauroral.tavern.controller;
 
 import com.iauroral.tavern.entity.User;
 import com.iauroral.tavern.service.UserService;
+import org.hibernate.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,11 @@ public class UserController {
         } else {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
         }
+    }
+
+    @GetMapping("logout")
+    public void logout() {
+        httpSession.removeAttribute(SessionKey);
     }
 
     @GetMapping("me")
