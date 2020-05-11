@@ -17,7 +17,6 @@ export class MainComponent implements OnInit {
     this.userService.employee()
       .subscribe((users: Array<User>) => {
         this.users = users;
-        console.log(users);
       });
   }
 
