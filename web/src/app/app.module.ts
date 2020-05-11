@@ -8,13 +8,15 @@ import { CoreInterceptor } from './net/core.interceptor';
 import { HeaderComponent } from './layout/header/header.component';
 import { MenuComponent } from './layout/menu/menu.component';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     MenuComponent,
-    LayoutComponent
+    LayoutComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,
