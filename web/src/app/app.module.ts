@@ -5,10 +5,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CoreInterceptor } from './net/core.interceptor';
+import { HeaderComponent } from './layout/header/header.component';
+import { MenuComponent } from './layout/menu/menu.component';
+import { LayoutComponent } from './layout/layout/layout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    MenuComponent,
+    LayoutComponent
   ],
   imports: [
     AppRoutingModule,
