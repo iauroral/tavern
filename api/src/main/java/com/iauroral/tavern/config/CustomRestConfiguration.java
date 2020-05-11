@@ -11,7 +11,7 @@ public class CustomRestConfiguration implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(Catering.class)
-                .exposeIdsFor(Order.class)
+                .exposeIdsFor(Orders.class)
                 .exposeIdsFor(OrderCateringDetail.class)
                 .exposeIdsFor(OrderRoomDetail.class)
                 .exposeIdsFor(OrderServiceDetail.class)
