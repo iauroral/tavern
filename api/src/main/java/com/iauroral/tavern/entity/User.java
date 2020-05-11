@@ -5,6 +5,11 @@ import javax.persistence.*;
 @Entity
 public class User {
 
+    public static final Integer ADMIN = 3;
+    public static final Integer MANAGE = 2;
+    public static final Integer FRONT = 1;
+    public static final Integer CUSTOM = 0;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
