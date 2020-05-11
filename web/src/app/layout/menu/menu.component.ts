@@ -25,6 +25,17 @@ export class MenuComponent implements OnInit {
           this.menus.push(new Menu('客房信息管理', 'room', 'mdi mdi-home menu-icon'));
           this.menus.push(new Menu('餐饮信息管理', 'catering', 'mdi mdi-home menu-icon'));
           this.menus.push(new Menu('服务信息管理', 'service', 'mdi mdi-home menu-icon'));
+        } else if (user.authority === User.MANAGE) {
+          this.menus.push(new Menu('客房订阅报表', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('消费订阅报表', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('查看员工信息', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('查看客房信息', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('查看餐饮信息', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('查看产品信息', '', 'mdi mdi-home menu-icon'));
+        } else if (user.authority === User.FRONT) {
+
+        } else {
+
         }
       });
   }
