@@ -21,10 +21,10 @@ public class User {
     private String password;
 
     /**
-     * 4 管理员
-     * 3 经理
-     * 2 前台
-     * 1 普通用户
+     * 3 管理员
+     * 2 经理
+     * 1 前台
+     * 0 顾客
      */
     private Integer authority;
 
