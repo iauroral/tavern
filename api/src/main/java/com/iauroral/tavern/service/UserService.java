@@ -9,4 +9,8 @@ public interface UserService {
     List<User> findAllStaff();
 
     List<User> findAllCustom();
+
+    boolean login(User user);
+
+    User findUserByUsername(String username);
 }

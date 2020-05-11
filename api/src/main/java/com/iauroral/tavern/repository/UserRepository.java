@@ -12,4 +12,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findUserByAuthorityGreaterThan(Integer authority);
 
     List<User> findUserByAuthorityIs(Integer authority);
+
+    User findUserByUsername(String username);
 }

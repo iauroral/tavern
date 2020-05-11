@@ -25,4 +25,22 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllCustom() {
         return userRepository.findUserByAuthorityIs(0);
     }
+
+    @Override
+    public boolean login(User user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        User persistUser = userRepository.findUserByUsername(username);
+
+        if (persistUser == null) {
+            return false;
+        }
+
+        return persistUser.getPassword().equals(password);
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
+    }
 }
