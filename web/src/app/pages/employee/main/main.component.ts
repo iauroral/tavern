@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../service/user.service';
+import { User } from '../../../entity/user';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  users: Array<User> = new Array<User>();
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.employee()
+      .subscribe((users: Array<User>) => {
+        this.users = users;
+        console.log(users);
+      });
   }
 
 }
