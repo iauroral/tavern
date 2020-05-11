@@ -20,7 +20,7 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         List<User> users = (List<User>) userRepository.findAll();
-        if (users.size() == 0) {
+        if (users.size() != 0) {
             return;
         }
 

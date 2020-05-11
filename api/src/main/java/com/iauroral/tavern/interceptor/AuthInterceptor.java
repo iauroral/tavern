@@ -1,6 +1,7 @@
 package com.iauroral.tavern.interceptor;
 
 import com.iauroral.tavern.controller.UserController;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -15,6 +16,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession httpSession = request.getSession();
         String username = (String) httpSession.getAttribute(UserController.SessionKey);
-        return username != null;
+        if (username == null) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return false;
+        }
+        return true;
     }
 }
