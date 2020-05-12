@@ -28,6 +28,7 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
         admin.setName("系统管理员");
         admin.setUsername("admin");
         admin.setPassword("admin");
+        admin.setSex(true);
         admin.setAuthority(User.ADMIN);
         userRepository.save(admin);
 
@@ -35,6 +36,7 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
         manager.setName("酒店经理");
         manager.setUsername("manager");
         manager.setPassword("manager");
+        manager.setSex(true);
         manager.setAuthority(User.MANAGE);
         userRepository.save(manager);
 
@@ -42,6 +44,7 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
         front.setName("酒店前台");
         front.setUsername("front");
         front.setPassword("front");
+        front.setSex(false);
         front.setAuthority(User.FRONT);
         userRepository.save(front);
 
@@ -49,6 +52,7 @@ public class ApplicationStartup implements ApplicationListener<ContextRefreshedE
         customer.setName("顾客");
         customer.setUsername("customer");
         customer.setPassword("customer");
+        customer.setSex(false);
         customer.setAuthority(User.CUSTOM);
         userRepository.save(customer);
     }
