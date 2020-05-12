@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">新增员工信息</h4>
-        <form class="forms-sample" [formGroup]="addForm" (ngSubmit)="submit()">
+        <form class="forms-sample" [formGroup]="form" (ngSubmit)="submit()">
           <div class="form-group">
             <label for="name">姓名</label>
             <input type="text" class="form-control" id="name" placeholder="姓名" formControlName="name" />

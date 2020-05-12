@@ -25,4 +25,12 @@ export class UserService {
   save(user: User): Observable<void> {
     return this.httpClient.post<void>('user', user);
   }
+
+  update(id: number, user: User): Observable<void> {
+    return this.httpClient.put<void>(`user/${id}`, user);
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.httpClient.get<User>(`user/${id}`);
+  }
 }
