@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-add',
@@ -10,7 +11,8 @@ export class AddComponent implements OnInit {
 
   private addForm: FormGroup;
 
-  constructor(private builder: FormBuilder) { }
+  constructor(private builder: FormBuilder,
+              private userService: UserService) { }
 
   ngOnInit() {
     this.addForm = this.builder.group({
@@ -23,7 +25,10 @@ export class AddComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.addForm.value);
+    this.userService.save(this.addForm.value)
+      .subscribe(() => {
+        console.log('success');
+      });
   }
 
 }

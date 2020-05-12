@@ -21,4 +21,8 @@ export class UserService {
   customer(): Observable<Array<User>> {
     return this.httpClient.get<Array<User>>('user/customer');
   }
+
+  save(user: User): Observable<void> {
+    return this.httpClient.post<void>('user', user);
+  }
 }
