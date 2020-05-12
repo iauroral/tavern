@@ -23,7 +23,7 @@
           <tr *ngFor="let room of rooms.reverse(); index as i">
             <td>{{ i + 1 }}</td>
             <td>{{ room.number }}</td>
-            <td>{{ room.type }}</td>
+            <td>{{ room.type | roomType }}</td>
             <td>{{ room.description }}</td>
             <td>{{ room.price }}</td>
             <td>
