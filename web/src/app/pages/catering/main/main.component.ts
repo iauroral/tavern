@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CateringService } from '../../../service/catering.service';
+import { Catering } from '../../../entity/catering';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  private caterings: Array<Catering>;
+
+  constructor(private cateringService: CateringService) { }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
+    this.cateringService.getAll()
+      .subscribe((data: any) => {
+        this.caterings = data._embedded.caterings;
+      });
   }
 
 }
