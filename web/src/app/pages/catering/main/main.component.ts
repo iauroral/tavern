@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CateringService } from '../../../service/catering.service';
 import { Catering } from '../../../entity/catering';
+import { User } from '../../../entity/user';
 
 @Component({
   selector: 'app-main',
@@ -21,6 +22,14 @@ export class MainComponent implements OnInit {
     this.cateringService.getAll()
       .subscribe((data: any) => {
         this.caterings = data._embedded.caterings;
+      });
+  }
+
+  delete(catering: Catering) {
+    this.cateringService.delete(catering.id)
+      .subscribe(() => {
+        alert('删除成功');
+        this.load();
       });
   }
 
