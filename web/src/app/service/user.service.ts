@@ -30,6 +30,10 @@ export class UserService {
     return this.httpClient.put<void>(`user/${id}`, user);
   }
 
+  delete(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`user/${id}`);
+  }
+
   getUserById(id: number): Observable<User> {
     return this.httpClient.get<User>(`user/${id}`);
   }
