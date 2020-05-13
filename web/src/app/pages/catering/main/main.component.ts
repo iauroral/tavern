@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CateringService } from '../../../service/catering.service';
 import { Catering } from '../../../entity/catering';
-import { User } from '../../../entity/user';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +9,7 @@ import { User } from '../../../entity/user';
 })
 export class MainComponent implements OnInit {
 
-  private caterings: Array<Catering>;
+  caterings: Array<Catering> = new Array<Catering>();
 
   constructor(private cateringService: CateringService) { }
 
