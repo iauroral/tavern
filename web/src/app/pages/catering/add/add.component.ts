@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CateringService } from '../../../service/catering.service';
 
 @Component({
   selector: 'app-add',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+
+  constructor(private builder: FormBuilder,
+              private cateringService: CateringService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.form = this.builder.group({
+      name: ['', Validators.required],
+      price: [0, Validators.required]
+    });
+  }
+
+  submit() {
+    this.cateringService.save(this.form.value)
+      .subscribe(() => {
+        alert('添加成功');
+        this.router.navigateByUrl('catering');
+      });
   }
 
 }
