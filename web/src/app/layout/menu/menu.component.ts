@@ -36,7 +36,7 @@ export class MenuComponent implements OnInit {
           this.menus.push(new Menu('查看客房状态', '', 'mdi mdi-home menu-icon'));
           this.menus.push(new Menu('客户订单管理', '', 'mdi mdi-home menu-icon'));
         } else {
-          this.menus.push(new Menu('我的订单', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('我的订单', 'order', 'mdi mdi-home menu-icon'));
         }
       });
   }
