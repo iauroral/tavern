@@ -1,18 +1,22 @@
 package com.iauroral.tavern.service.impl;
 
+import com.iauroral.tavern.controller.UserController;
 import com.iauroral.tavern.entity.User;
 import com.iauroral.tavern.repository.UserRepository;
 import com.iauroral.tavern.service.UserService;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final HttpSession httpSession;
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(HttpSession httpSession, UserRepository userRepository) {
+        this.httpSession = httpSession;
         this.userRepository = userRepository;
     }
 
@@ -42,5 +46,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
+    }
+
+    @Override
+    public User getCurrentLoginUser() {
+        String username = (String) httpSession.getAttribute(UserController.SessionKey);
+        return this.findUserByUsername(username);
     }
 }

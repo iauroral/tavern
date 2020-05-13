@@ -3,11 +3,18 @@ package com.iauroral.tavern.service;
 import com.iauroral.tavern.entity.Orders;
 import com.iauroral.tavern.entity.Room;
 
+import java.util.List;
+
 /**
  * 1. 顾客创建订单
  * 2. 前台查看所有订单 确认该订单
  */
 public interface OrdersService {
+
+    /**
+     * 查询属于当前登录用户的所有订单
+     */
+    List<Orders> getAllOrdersByCurrentLoginUser();
 
     /**
      * 预约 创建订单

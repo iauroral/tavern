@@ -13,4 +13,6 @@ public interface UserService {
     boolean login(User user);
 
     User findUserByUsername(String username);
+
+    User getCurrentLoginUser();
 }
