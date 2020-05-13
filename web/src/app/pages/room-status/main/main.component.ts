@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Room } from '../../../entity/room';
+import { RoomService } from '../../../service/room.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  rooms: Array<Room> = new Array<Room>();
+
+  form: FormGroup;
+
+  constructor(private roomService: RoomService,
+              private builder: FormBuilder) { }
 
   ngOnInit() {
+    this.form = this.builder.group({
+      status: null
+    });
+  }
+
+  submit() {
+
   }
 
 }
