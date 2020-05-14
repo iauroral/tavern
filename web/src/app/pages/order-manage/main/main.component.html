@@ -1,1 +1,54 @@
-<p>main works!</p>
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">客户订单管理</h4>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>预定顾客</th>
+            <th>前台处理人</th>
+            <th>房间信息</th>
+            <th>餐饮</th>
+            <th>服务</th>
+            <th>总价</th>
+            <th>状态</th>
+            <th>预定时间</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let order of orders.reverse(); index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ order.custom.name }}</td>
+            <td>{{ order.employee?.name }}</td>
+            <td>
+              <p><small>房间号：{{ order.orderRoomDetail?.room.number }}</small></p>
+              <p><small>房间类型：{{ order.orderRoomDetail?.room.type | roomType }}</small></p>
+              <p><small>房间描述：{{ order.orderRoomDetail?.room.description }}</small></p>
+              <p><small>房间价格：{{ order.orderRoomDetail?.room.price }}元</small></p>
+            </td>
+            <td>
+              <p *ngFor="let catering of order.orderCateringDetails">
+                <small>{{ catering.catering.name }}({{ catering.catering.price }} 元) × {{ catering.number }}</small>
+              </p>
+            </td>
+            <td>
+              <p *ngFor="let service of order.orderServiceDetails">
+                <small>{{ service.service.name }}({{ service.service.price }} 元) × {{ service.number }}</small>
+              </p>
+            </td>
+            <td>{{ order.totalPrice }}</td>
+            <td>{{ order.status | orderStatus }}</td>
+            <td>{{ order.reserve | date: 'yyyy年MM月dd日hh:mm' }}</td>
+            <td>
+              <button *ngIf="order.status === 0" class="btn btn-sm btn-primary">办理入住</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
