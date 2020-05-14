@@ -9,6 +9,10 @@ import java.math.BigDecimal;
 @Entity
 public class Room {
 
+    public static final Integer FREE = 0;
+    public static final Integer ORDER = 1;
+    public static final Integer CHECK = 2;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

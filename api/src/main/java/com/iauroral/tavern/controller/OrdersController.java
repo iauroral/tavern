@@ -3,6 +3,7 @@ package com.iauroral.tavern.controller;
 import com.iauroral.tavern.entity.Orders;
 import com.iauroral.tavern.service.OrdersService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,12 @@ public class OrdersController {
     }
 
     @GetMapping("custom")
-    public List<Orders> orders() {
+    public List<Orders> custom() {
         return ordersService.getAllOrdersByCurrentLoginUser();
+    }
+
+    @PostMapping
+    public void order(Orders orders) {
+        ordersService.createOrder(orders);
     }
 }

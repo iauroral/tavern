@@ -1,5 +1,7 @@
 package com.iauroral.tavern.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -7,6 +9,11 @@ import java.util.List;
 
 @Entity
 public class Orders {
+
+    public static final Integer NEW = 0;
+    public static final Integer CHECK = 1;
+    public static final Integer CANCEL = 2;
+    public static final Integer FINISH = 3;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +36,7 @@ public class Orders {
     /**
      * 预定时间
      */
+    @CreationTimestamp
     private Calendar reserve;
 
     /**

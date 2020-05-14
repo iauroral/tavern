@@ -44,4 +44,14 @@ public class RoomServiceImpl implements RoomService {
             roomRepository.save(room);
         }
     }
+
+    @Override
+    public void setOrder(Long roomId) {
+        Optional<Room> optional = roomRepository.findById(roomId);
+        if (optional.isPresent()) {
+            Room room = optional.get();
+            room.setStatus(Room.ORDER);
+            roomRepository.save(room);
+        }
+    }
 }

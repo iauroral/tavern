@@ -1,5 +1,7 @@
 package com.iauroral.tavern.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -25,6 +27,9 @@ public class OrderRoomDetail {
      * 退房时间
      */
     private Calendar checkOut;
+
+    @CreationTimestamp
+    private Calendar createTime;
 
     public OrderRoomDetail() {
     }
@@ -67,5 +72,13 @@ public class OrderRoomDetail {
 
     public void setCheckOut(Calendar checkOut) {
         this.checkOut = checkOut;
+    }
+
+    public Calendar getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Calendar createTime) {
+        this.createTime = createTime;
     }
 }

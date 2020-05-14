@@ -1,6 +1,9 @@
 package com.iauroral.tavern.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 public class OrderServiceDetail {
@@ -16,6 +19,9 @@ public class OrderServiceDetail {
     private Service service;
 
     private Integer number;
+
+    @CreationTimestamp
+    private Calendar createTime;
 
     public OrderServiceDetail() {
     }
@@ -50,5 +56,13 @@ public class OrderServiceDetail {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Calendar getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Calendar createTime) {
+        this.createTime = createTime;
     }
 }
