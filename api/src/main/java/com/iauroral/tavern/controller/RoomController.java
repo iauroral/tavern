@@ -20,4 +20,9 @@ public class RoomController {
     public List<Room> findAllByStatus(@RequestParam(required = false) Integer status) {
         return roomService.findAllRoomByStatus(status);
     }
+
+    @PostMapping("clean/{roomId}")
+    public void clean(@PathVariable Long roomId) {
+        roomService.setClean(roomId);
+    }
 }

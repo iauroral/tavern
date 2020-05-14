@@ -7,4 +7,8 @@ import java.util.List;
 public interface RoomService {
 
     List<Room> findAllRoomByStatus(Integer status);
+
+    void setClean(Long roomId);
+
+    void setUnClean(Long roomId);
 }
