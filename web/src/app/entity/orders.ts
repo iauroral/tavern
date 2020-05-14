@@ -1,7 +1,7 @@
 import { User } from './user';
 import { OrdersRoom } from './orders-room';
-import { OrdersCatering } from './orders-catering';
-import { OrdersService } from './orders-service';
+import { OrdersCateringDetail } from './orders-catering-detail';
+import { OrdersServiceDetail } from './orders-service-detail';
 
 export class Orders {
 
@@ -31,8 +31,14 @@ export class Orders {
   orderRoomDetail: OrdersRoom;
 
   /** 餐饮详情 */
-  orderCateringDetails: Array<OrdersCatering>;
+  orderCateringDetails: Array<OrdersCateringDetail>;
 
   /** 服务详情 */
-  orderServiceDetails: Array<OrdersService>;
+  orderServiceDetails: Array<OrdersServiceDetail>;
+
+  constructor() {
+    this.orderRoomDetail = new OrdersRoom();
+    this.orderCateringDetails = new Array<OrdersCateringDetail>();
+    this.orderServiceDetails = new Array<OrdersServiceDetail>();
+  }
 }
