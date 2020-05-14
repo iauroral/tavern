@@ -8,6 +8,7 @@ import com.iauroral.tavern.repository.OrdersRepository;
 import com.iauroral.tavern.service.OrdersService;
 import com.iauroral.tavern.service.RoomService;
 import com.iauroral.tavern.service.UserService;
+import com.iauroral.tavern.target.OrderTarget;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,29 +61,29 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void createOrder(Orders order) {
-        OrderRoomDetail orderRoomDetail = order.getOrderRoomDetail();
-        List<OrderCateringDetail> orderCateringDetails = order.getOrderCateringDetails();
-        List<OrderServiceDetail> orderServiceDetails = order.getOrderServiceDetails();
-
-        order.setCustom(userService.getCurrentLoginUser());
-        order.setStatus(Orders.NEW);
-        ordersRepository.save(order);
-
-        orderRoomDetail.setOrders(order);
-        orderRoomDetailRepository.save(orderRoomDetail);
-
-        roomService.setOrder(orderRoomDetail.getRoom().getId());
-
-        for (OrderCateringDetail orderCateringDetail : orderCateringDetails) {
-            orderCateringDetail.setOrders(order);
-        }
-        orderCateringDetailRepository.saveAll(orderCateringDetails);
-
-        for (OrderServiceDetail orderServiceDetail : orderServiceDetails) {
-            orderServiceDetail.setOrders(order);
-        }
-        orderServiceDetailRepository.saveAll(orderServiceDetails);
+    public void createOrder(OrderTarget target) {
+//        OrderRoomDetail orderRoomDetail = order.getOrderRoomDetail();
+//        List<OrderCateringDetail> orderCateringDetails = order.getOrderCateringDetails();
+//        List<OrderServiceDetail> orderServiceDetails = order.getOrderServiceDetails();
+//
+//        order.setCustom(userService.getCurrentLoginUser());
+//        order.setStatus(Orders.NEW);
+//        ordersRepository.save(order);
+//
+//        orderRoomDetail.setOrders(order);
+//        orderRoomDetailRepository.save(orderRoomDetail);
+//
+//        roomService.setOrder(orderRoomDetail.getRoom().getId());
+//
+//        for (OrderCateringDetail orderCateringDetail : orderCateringDetails) {
+//            orderCateringDetail.setOrders(order);
+//        }
+//        orderCateringDetailRepository.saveAll(orderCateringDetails);
+//
+//        for (OrderServiceDetail orderServiceDetail : orderServiceDetails) {
+//            orderServiceDetail.setOrders(order);
+//        }
+//        orderServiceDetailRepository.saveAll(orderServiceDetails);
     }
 
     @Override

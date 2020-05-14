@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Orders } from '../../../entity/orders';
+import { OrdersService } from '../../../service/orders.service';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  orders: Array<Orders> = new Array<Orders>();
+
+  constructor(private orderService: OrdersService) { }
 
   ngOnInit() {
+    this.orderService.getCustomAll()
+      .subscribe((orders: Array<Orders>) => {
+        this.orders = orders;
+        console.log(this.orders);
+      });
   }
 
 }

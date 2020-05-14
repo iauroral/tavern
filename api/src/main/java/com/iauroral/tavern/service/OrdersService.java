@@ -2,6 +2,7 @@ package com.iauroral.tavern.service;
 
 import com.iauroral.tavern.entity.Orders;
 import com.iauroral.tavern.entity.Room;
+import com.iauroral.tavern.target.OrderTarget;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface OrdersService {
     /**
      * 预约 创建订单
      */
-    void createOrder(Orders order);
+    void createOrder(OrderTarget target);
 
     /**
      * 办理入住 确定订单

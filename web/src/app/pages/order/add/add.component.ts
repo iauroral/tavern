@@ -10,7 +10,7 @@ import { Catering } from '../../../entity/catering';
 import { CateringService } from '../../../service/catering.service';
 import { Service } from '../../../entity/service';
 import { ServiceService } from '../../../service/service.service';
-import { Orders } from '../../../entity/orders';
+import { CateringTarget, OrderTarget, ServiceTarget } from '../../../target/order';
 
 @Component({
   selector: 'app-add',
@@ -26,7 +26,7 @@ export class AddComponent implements OnInit {
   orderCaterings: Array<OrdersCateringDetail> = new Array<OrdersCateringDetail>();
   orderServices: Array<OrdersServiceDetail> = new Array<OrdersServiceDetail>();
 
-  orders: Orders = new Orders();
+  order: OrderTarget = new OrderTarget();
 
   form: FormGroup;
 
@@ -52,11 +52,15 @@ export class AddComponent implements OnInit {
   }
 
   submit() {
-    this.orders.totalPrice = this.getTotalPrice();
-    this.orders.orderRoomDetail.room = this.room;
-    this.orders.orderCateringDetails = this.orderCaterings;
-    this.orders.orderServiceDetails = this.orderServices;
-    this.ordersService.save(this.orders)
+    this.order.roomId = this.room.id;
+    for (const catering of this.orderCaterings) {
+      this.order.caterings.push(new CateringTarget(catering.catering.id, catering.number));
+    }
+    for (const service of this.orderServices) {
+      this.order.services.push(new ServiceTarget(service.service.id, service.number));
+    }
+    console.log(this.order);
+    this.ordersService.save(this.order)
       .subscribe(() => {
         alert('预约成功');
         this.router.navigateByUrl('order');
