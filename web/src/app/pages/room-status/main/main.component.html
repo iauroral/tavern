@@ -29,6 +29,9 @@
             <th>类型</th>
             <th>描述</th>
             <th>价格</th>
+            <th>客房状态</th>
+            <th>是否被清理</th>
+            <th>操作</th>
           </tr>
           </thead>
           <tbody>
@@ -38,6 +41,11 @@
             <td>{{ room.type | roomType }}</td>
             <td>{{ room.description }}</td>
             <td>{{ room.price }}</td>
+            <td>{{ room.status | roomStatus }}</td>
+            <td>{{ room.clean | clean }}</td>
+            <td>
+              <button *ngIf="!room.clean" class="btn btn-sm btn-info" type="button">清理完成</button>
+            </td>
           </tr>
           </tbody>
         </table>
