@@ -27,6 +27,10 @@ export class RoomService {
     return this.httpClient.get<Room>(`room/${id}`);
   }
 
+  clean(id: number): Observable<void> {
+    return this.httpClient.post<void>(`room/clean/${id}`, {});
+  }
+
   save(room: Room): Observable<void> {
     return this.httpClient.post<void>('room', room);
   }

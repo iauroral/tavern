@@ -31,4 +31,12 @@ export class MainComponent implements OnInit {
       });
   }
 
+  clean(room: Room) {
+    this.roomService.clean(room.id)
+      .subscribe(() => {
+        alert('状态更新成功');
+        this.submit();
+      });
+  }
+
 }
