@@ -36,4 +36,9 @@ public class OrdersController {
     public void cancel(@PathVariable Long id) {
         ordersService.cancelOrder(id);
     }
+
+    @PutMapping("confirm/{id}")
+    public void confirm(@PathVariable Long id) {
+        ordersService.confirmOrder(id);
+    }
 }

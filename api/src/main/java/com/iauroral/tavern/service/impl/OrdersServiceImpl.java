@@ -126,7 +126,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void confirmOrder(Long orderId) {
-
+        Orders orders = getOrderById(orderId);
+        orders.setStatus(Orders.CHECK);
+        ordersRepository.save(orders);
     }
 
     @Override
