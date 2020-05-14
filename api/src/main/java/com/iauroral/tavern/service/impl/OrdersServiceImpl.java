@@ -5,12 +5,11 @@ import com.iauroral.tavern.repository.OrderCateringDetailRepository;
 import com.iauroral.tavern.repository.OrderRoomDetailRepository;
 import com.iauroral.tavern.repository.OrderServiceDetailRepository;
 import com.iauroral.tavern.repository.OrdersRepository;
-import com.iauroral.tavern.service.OrdersService;
-import com.iauroral.tavern.service.RoomService;
-import com.iauroral.tavern.service.UserService;
+import com.iauroral.tavern.service.*;
 import com.iauroral.tavern.target.OrderTarget;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,14 +17,18 @@ public class OrdersServiceImpl implements OrdersService {
 
     private final UserService userService;
     private final RoomService roomService;
+    private final ServiceService serviceService;
+    private final CateringService cateringService;
     private final OrdersRepository ordersRepository;
     private final OrderRoomDetailRepository orderRoomDetailRepository;
     private final OrderCateringDetailRepository orderCateringDetailRepository;
     private final OrderServiceDetailRepository orderServiceDetailRepository;
 
-    public OrdersServiceImpl(UserService userService, RoomService roomService, OrdersRepository ordersRepository, OrderRoomDetailRepository orderRoomDetailRepository, OrderCateringDetailRepository orderCateringDetailRepository, OrderServiceDetailRepository orderServiceDetailRepository) {
+    public OrdersServiceImpl(UserService userService, RoomService roomService, ServiceService serviceService, CateringService cateringService, OrdersRepository ordersRepository, OrderRoomDetailRepository orderRoomDetailRepository, OrderCateringDetailRepository orderCateringDetailRepository, OrderServiceDetailRepository orderServiceDetailRepository) {
         this.userService = userService;
         this.roomService = roomService;
+        this.serviceService = serviceService;
+        this.cateringService = cateringService;
         this.ordersRepository = ordersRepository;
         this.orderRoomDetailRepository = orderRoomDetailRepository;
         this.orderCateringDetailRepository = orderCateringDetailRepository;
@@ -41,9 +44,24 @@ public class OrdersServiceImpl implements OrdersService {
     private List<Orders> query(List<Orders> orders) {
         for (Orders order : orders) {
             Long orderId = order.getId();
-            order.setOrderRoomDetail(this.orderRoomDetail(orderId));
-            order.setOrderCateringDetails(this.orderCateringDetails(orderId));
-            order.setOrderServiceDetails(this.orderServiceDetails(orderId));
+
+            OrderRoomDetail roomDetail = this.orderRoomDetail(orderId);
+            if (roomDetail != null) {
+                roomDetail.setOrders(null);
+                order.setOrderRoomDetail(roomDetail);
+            }
+
+            List<OrderCateringDetail> cateringDetails = this.orderCateringDetails(orderId);
+            for (OrderCateringDetail cateringDetail : cateringDetails) {
+                cateringDetail.setOrders(null);
+            }
+            order.setOrderCateringDetails(cateringDetails);
+
+            List<OrderServiceDetail> serviceDetails = this.orderServiceDetails(orderId);
+            for (OrderServiceDetail serviceDetail : serviceDetails) {
+                serviceDetail.setOrders(null);
+            }
+            order.setOrderServiceDetails(serviceDetails);
         }
         return orders;
     }
@@ -62,28 +80,37 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void createOrder(OrderTarget target) {
-//        OrderRoomDetail orderRoomDetail = order.getOrderRoomDetail();
-//        List<OrderCateringDetail> orderCateringDetails = order.getOrderCateringDetails();
-//        List<OrderServiceDetail> orderServiceDetails = order.getOrderServiceDetails();
-//
-//        order.setCustom(userService.getCurrentLoginUser());
-//        order.setStatus(Orders.NEW);
-//        ordersRepository.save(order);
-//
-//        orderRoomDetail.setOrders(order);
-//        orderRoomDetailRepository.save(orderRoomDetail);
-//
-//        roomService.setOrder(orderRoomDetail.getRoom().getId());
-//
-//        for (OrderCateringDetail orderCateringDetail : orderCateringDetails) {
-//            orderCateringDetail.setOrders(order);
-//        }
-//        orderCateringDetailRepository.saveAll(orderCateringDetails);
-//
-//        for (OrderServiceDetail orderServiceDetail : orderServiceDetails) {
-//            orderServiceDetail.setOrders(order);
-//        }
-//        orderServiceDetailRepository.saveAll(orderServiceDetails);
+        Orders order = new Orders();
+        order.setCustom(userService.getCurrentLoginUser());
+        order.setStatus(Orders.NEW);
+        ordersRepository.save(order);
+
+        OrderRoomDetail roomDetail = new OrderRoomDetail();
+        roomDetail.setOrders(order);
+        roomDetail.setRoom(roomService.getRoomById(target.getRoomId()));
+        orderRoomDetailRepository.save(roomDetail);
+
+        roomService.setOrder(target.getRoomId());
+
+        List<OrderCateringDetail> cateringDetails = new ArrayList<>();
+        for (OrderTarget.CateringTarget cateringTarget : target.getCaterings()) {
+            OrderCateringDetail cateringDetail = new OrderCateringDetail();
+            cateringDetail.setOrders(order);
+            cateringDetail.setCatering(cateringService.getCateringById(cateringTarget.getCateringId()));
+            cateringDetail.setNumber(cateringTarget.getNumber());
+            cateringDetails.add(cateringDetail);
+        }
+        orderCateringDetailRepository.saveAll(cateringDetails);
+
+        List<OrderServiceDetail> serviceDetails = new ArrayList<>();
+        for (OrderTarget.ServiceTarget serviceTarget : target.getServices()) {
+            OrderServiceDetail serviceDetail = new OrderServiceDetail();
+            serviceDetail.setOrders(order);
+            serviceDetail.setService(serviceService.getServiceById(serviceTarget.getServiceId()));
+            serviceDetail.setNumber(serviceTarget.getNumber());
+            serviceDetails.add(serviceDetail);
+        }
+        orderServiceDetailRepository.saveAll(serviceDetails);
     }
 
     @Override

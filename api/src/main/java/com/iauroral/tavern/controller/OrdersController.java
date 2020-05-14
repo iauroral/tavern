@@ -3,10 +3,7 @@ package com.iauroral.tavern.controller;
 import com.iauroral.tavern.entity.Orders;
 import com.iauroral.tavern.service.OrdersService;
 import com.iauroral.tavern.target.OrderTarget;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class OrdersController {
     }
 
     @PostMapping
-    public void order(OrderTarget target) {
+    public void order(@RequestBody OrderTarget target) {
         ordersService.createOrder(target);
     }
 }

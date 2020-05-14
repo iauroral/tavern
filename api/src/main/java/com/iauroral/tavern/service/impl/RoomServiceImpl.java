@@ -5,8 +5,8 @@ import com.iauroral.tavern.repository.RoomRepository;
 import com.iauroral.tavern.service.RoomService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -27,31 +27,27 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void setClean(Long roomId) {
-        Optional<Room> optional = roomRepository.findById(roomId);
-        if (optional.isPresent()) {
-            Room room = optional.get();
-            room.setClean(true);
-            roomRepository.save(room);
-        }
+        Room room = this.getRoomById(roomId);
+        room.setClean(true);
+        roomRepository.save(room);
     }
 
     @Override
     public void setUnClean(Long roomId) {
-        Optional<Room> optional = roomRepository.findById(roomId);
-        if (optional.isPresent()) {
-            Room room = optional.get();
-            room.setClean(false);
-            roomRepository.save(room);
-        }
+        Room room = this.getRoomById(roomId);
+        room.setClean(false);
+        roomRepository.save(room);
     }
 
     @Override
     public void setOrder(Long roomId) {
-        Optional<Room> optional = roomRepository.findById(roomId);
-        if (optional.isPresent()) {
-            Room room = optional.get();
-            room.setStatus(Room.ORDER);
-            roomRepository.save(room);
-        }
+        Room room = this.getRoomById(roomId);
+        room.setStatus(Room.ORDER);
+        roomRepository.save(room);
+    }
+
+    @Override
+    public Room getRoomById(Long roomId) {
+        return roomRepository.findById(roomId).orElseThrow(EntityNotFoundException::new);
     }
 }

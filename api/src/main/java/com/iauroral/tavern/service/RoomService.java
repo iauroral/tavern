@@ -13,4 +13,6 @@ public interface RoomService {
     void setUnClean(Long roomId);
 
     void setOrder(Long roomId);
+
+    Room getRoomById(Long roomId);
 }
