@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Room } from '../entity/room';
+import { isNull } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,14 @@ import { Room } from '../entity/room';
 export class RoomService {
 
   constructor(private httpClient: HttpClient) { }
+
+  getRoomByStatus(status: number): Observable<Array<Room>> {
+    if (isNull(status)) {
+      return this.httpClient.get<Array<Room>>('room/status');
+    }
+    // @ts-ignore
+    return this.httpClient.get<Array<Room>>('room/status', { params: { status } });
+  }
 
   getAll(): Observable<any> {
     return this.httpClient.get<any>('room');

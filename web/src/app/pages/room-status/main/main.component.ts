@@ -21,10 +21,14 @@ export class MainComponent implements OnInit {
     this.form = this.builder.group({
       status: null
     });
+    this.submit();
   }
 
   submit() {
-
+    this.roomService.getRoomByStatus(this.form.value.status)
+      .subscribe((rooms: Array<Room>) => {
+        this.rooms = rooms;
+      });
   }
 
 }
