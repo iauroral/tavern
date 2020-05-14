@@ -30,4 +30,8 @@ export class OrdersService {
   confirm(id: number): Observable<void> {
     return this.httpClient.put<void>(`orders/confirm/${id}`, {});
   }
+
+  finish(id: number): Observable<void> {
+    return this.httpClient.put<void>(`orders/finish/${id}`, {});
+  }
 }

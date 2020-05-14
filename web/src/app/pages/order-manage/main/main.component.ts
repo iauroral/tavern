@@ -32,4 +32,11 @@ export class MainComponent implements OnInit {
       });
   }
 
+  finish(order: Orders) {
+    this.ordersService.finish(order.id)
+      .subscribe(() => {
+        alert('订单办结成功');
+        this.load();
+      });
+  }
 }
