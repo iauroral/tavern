@@ -125,10 +125,10 @@ public class OrdersServiceImpl implements OrdersService {
         orderServiceDetailRepository.saveAll(serviceDetails);
     }
 
-    // todo: 设置前台处理人
     @Override
     public void confirmOrder(Long orderId) {
         Orders orders = getOrderById(orderId);
+        orders.setEmployee(userService.getCurrentLoginUser());
         orders.setStatus(Orders.CHECK);
         ordersRepository.save(orders);
     }
