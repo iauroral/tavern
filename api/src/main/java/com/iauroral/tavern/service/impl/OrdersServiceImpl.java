@@ -89,6 +89,7 @@ public class OrdersServiceImpl implements OrdersService {
         return orderServiceDetailRepository.findAllByOrders_Id(orderId);
     }
 
+    // todo: 计算总价
     @Override
     public void createOrder(OrderTarget target) {
         Orders order = new Orders();
@@ -124,6 +125,7 @@ public class OrdersServiceImpl implements OrdersService {
         orderServiceDetailRepository.saveAll(serviceDetails);
     }
 
+    // todo: 设置前台处理人
     @Override
     public void confirmOrder(Long orderId) {
         Orders orders = getOrderById(orderId);
