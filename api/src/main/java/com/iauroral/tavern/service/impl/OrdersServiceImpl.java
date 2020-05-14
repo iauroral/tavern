@@ -41,6 +41,12 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public List<Orders> getAllOrders() {
+        List<Orders> orders = (List<Orders>) ordersRepository.findAll();
+        return query(orders);
+    }
+
+    @Override
     public List<Orders> getAllOrdersByCurrentLoginUser() {
         Long id = userService.getCurrentLoginUser().getId();
         return query(ordersRepository.findAllByCustom_Id(id));

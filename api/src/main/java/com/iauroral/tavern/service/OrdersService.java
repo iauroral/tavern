@@ -13,6 +13,11 @@ import java.util.List;
 public interface OrdersService {
 
     /**
+     * 查询所有订单
+     */
+    List<Orders> getAllOrders();
+
+    /**
      * 查询属于当前登录用户的所有订单
      */
     List<Orders> getAllOrdersByCurrentLoginUser();

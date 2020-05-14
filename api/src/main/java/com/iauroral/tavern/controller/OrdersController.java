@@ -17,6 +17,11 @@ public class OrdersController {
         this.ordersService = ordersService;
     }
 
+    @GetMapping
+    public List<Orders> getAll() {
+        return ordersService.getAllOrders();
+    }
+
     @GetMapping("custom")
     public List<Orders> custom() {
         return ordersService.getAllOrdersByCurrentLoginUser();
