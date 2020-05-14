@@ -144,7 +144,8 @@ public class OrdersServiceImpl implements OrdersService {
         orders.setEmployee(userService.getCurrentLoginUser());
         orders.setStatus(Orders.CHECK);
         ordersRepository.save(orders);
-        roomService.setCheck(orders.getOrderRoomDetail().getRoom().getId());
+        OrderRoomDetail roomDetail = this.orderRoomDetail(orderId);
+        roomService.setCheck(roomDetail.getRoom().getId());
     }
 
     @Override
@@ -152,7 +153,8 @@ public class OrdersServiceImpl implements OrdersService {
         Orders order = getOrderById(orderId);
         order.setStatus(Orders.CANCEL);
         ordersRepository.save(order);
-        roomService.setFree(order.getOrderRoomDetail().getRoom().getId());
+        OrderRoomDetail roomDetail = this.orderRoomDetail(orderId);
+        roomService.setFree(roomDetail.getRoom().getId());
     }
 
     @Override
@@ -160,8 +162,9 @@ public class OrdersServiceImpl implements OrdersService {
         Orders order = getOrderById(orderId);
         order.setStatus(Orders.FINISH);
         ordersRepository.save(order);
-        roomService.setFree(order.getOrderRoomDetail().getRoom().getId());
-        roomService.setUnClean(order.getOrderRoomDetail().getRoom().getId());
+        OrderRoomDetail roomDetail = this.orderRoomDetail(orderId);
+        roomService.setFree(roomDetail.getRoom().getId());
+        roomService.setUnClean(roomDetail.getRoom().getId());
     }
 
     @Override
