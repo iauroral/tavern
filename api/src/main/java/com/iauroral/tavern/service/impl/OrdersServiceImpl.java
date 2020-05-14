@@ -34,7 +34,29 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public List<Orders> getAllOrdersByCurrentLoginUser() {
         Long id = userService.getCurrentLoginUser().getId();
-        return ordersRepository.findAllByCustom_Id(id);
+        return query(ordersRepository.findAllByCustom_Id(id));
+    }
+
+    private List<Orders> query(List<Orders> orders) {
+        for (Orders order : orders) {
+            Long orderId = order.getId();
+            order.setOrderRoomDetail(this.orderRoomDetail(orderId));
+            order.setOrderCateringDetails(this.orderCateringDetails(orderId));
+            order.setOrderServiceDetails(this.orderServiceDetails(orderId));
+        }
+        return orders;
+    }
+
+    private OrderRoomDetail orderRoomDetail(Long orderId) {
+        return orderRoomDetailRepository.findOrderRoomDetailByOrders_Id(orderId);
+    }
+
+    private List<OrderCateringDetail> orderCateringDetails(Long orderId) {
+        return orderCateringDetailRepository.findAllByOrders_Id(orderId);
+    }
+
+    private List<OrderServiceDetail> orderServiceDetails(Long orderId) {
+        return orderServiceDetailRepository.findAllByOrders_Id(orderId);
     }
 
     @Override
