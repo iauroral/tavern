@@ -59,7 +59,6 @@ export class AddComponent implements OnInit {
     for (const service of this.orderServices) {
       this.order.services.push(new ServiceTarget(service.service.id, service.number));
     }
-    console.log(this.order);
     this.ordersService.save(this.order)
       .subscribe(() => {
         alert('预约成功');

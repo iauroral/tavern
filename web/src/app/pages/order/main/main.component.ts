@@ -17,7 +17,6 @@ export class MainComponent implements OnInit {
     this.orderService.getCustomAll()
       .subscribe((orders: Array<Orders>) => {
         this.orders = orders;
-        console.log(this.orders);
       });
   }
 
