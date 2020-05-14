@@ -26,4 +26,9 @@ public class OrdersController {
     public void order(@RequestBody OrderTarget target) {
         ordersService.createOrder(target);
     }
+
+    @PutMapping("cancel/{id}")
+    public void cancel(@PathVariable Long id) {
+        ordersService.cancelOrder(id);
+    }
 }

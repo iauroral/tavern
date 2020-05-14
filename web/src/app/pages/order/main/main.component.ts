@@ -14,9 +14,20 @@ export class MainComponent implements OnInit {
   constructor(private orderService: OrdersService) { }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
     this.orderService.getCustomAll()
       .subscribe((orders: Array<Orders>) => {
         this.orders = orders;
+      });
+  }
+
+  cancel(order: Orders) {
+    this.orderService.cancel(order.id)
+      .subscribe(() => {
+        this.load();
       });
   }
 

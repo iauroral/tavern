@@ -9,6 +9,7 @@ import com.iauroral.tavern.service.*;
 import com.iauroral.tavern.target.OrderTarget;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,10 @@ public class OrdersServiceImpl implements OrdersService {
         this.orderRoomDetailRepository = orderRoomDetailRepository;
         this.orderCateringDetailRepository = orderCateringDetailRepository;
         this.orderServiceDetailRepository = orderServiceDetailRepository;
+    }
+
+    private Orders getOrderById(Long orderId) {
+        return ordersRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
@@ -120,7 +125,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void cancelOrder(Long orderId) {
-
+        Orders order = getOrderById(orderId);
+        order.setStatus(Orders.CANCEL);
+        ordersRepository.save(order);
     }
 
     @Override

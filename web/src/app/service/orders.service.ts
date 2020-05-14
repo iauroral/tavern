@@ -18,4 +18,8 @@ export class OrdersService {
   save(order: OrderTarget): Observable<void> {
     return this.httpClient.post<void>('orders', order);
   }
+
+  cancel(id: number): Observable<void> {
+    return this.httpClient.put<void>(`orders/cancel/${id}`, {});
+  }
 }
