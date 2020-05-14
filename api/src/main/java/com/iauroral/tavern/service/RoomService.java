@@ -14,5 +14,9 @@ public interface RoomService {
 
     void setOrder(Long roomId);
 
+    void setFree(Long roomId);
+
+    void setCheck(Long roomId);
+
     Room getRoomById(Long roomId);
 }

@@ -47,6 +47,20 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public void setFree(Long roomId) {
+        Room room = this.getRoomById(roomId);
+        room.setStatus(Room.FREE);
+        roomRepository.save(room);
+    }
+
+    @Override
+    public void setCheck(Long roomId) {
+        Room room = this.getRoomById(roomId);
+        room.setStatus(Room.CHECK);
+        roomRepository.save(room);
+    }
+
+    @Override
     public Room getRoomById(Long roomId) {
         return roomRepository.findById(roomId).orElseThrow(EntityNotFoundException::new);
     }

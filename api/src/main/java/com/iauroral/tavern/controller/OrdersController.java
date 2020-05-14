@@ -41,4 +41,9 @@ public class OrdersController {
     public void confirm(@PathVariable Long id) {
         ordersService.confirmOrder(id);
     }
+
+    @PutMapping("finish/{id}")
+    public void finish(@PathVariable Long id) {
+        ordersService.finishOrder(id);
+    }
 }

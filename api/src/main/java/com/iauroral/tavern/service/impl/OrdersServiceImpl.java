@@ -144,6 +144,7 @@ public class OrdersServiceImpl implements OrdersService {
         orders.setEmployee(userService.getCurrentLoginUser());
         orders.setStatus(Orders.CHECK);
         ordersRepository.save(orders);
+        roomService.setCheck(orders.getOrderRoomDetail().getRoom().getId());
     }
 
     @Override
@@ -151,11 +152,16 @@ public class OrdersServiceImpl implements OrdersService {
         Orders order = getOrderById(orderId);
         order.setStatus(Orders.CANCEL);
         ordersRepository.save(order);
+        roomService.setFree(order.getOrderRoomDetail().getRoom().getId());
     }
 
     @Override
     public void finishOrder(Long orderId) {
-
+        Orders order = getOrderById(orderId);
+        order.setStatus(Orders.FINISH);
+        ordersRepository.save(order);
+        roomService.setFree(order.getOrderRoomDetail().getRoom().getId());
+        roomService.setUnClean(order.getOrderRoomDetail().getRoom().getId());
     }
 
     @Override
