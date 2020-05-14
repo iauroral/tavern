@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value)
       .subscribe(() => {
         this.router.navigateByUrl('/dashboard');
+      }, () => {
+        alert('用户名或密码错误');
       });
   }
 }
