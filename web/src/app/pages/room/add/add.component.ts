@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RoomService } from '../../../service/room.service';
+import { Room } from '../../../entity/room';
 
 @Component({
   selector: 'app-add',
@@ -21,7 +22,9 @@ export class AddComponent implements OnInit {
       number: ['', Validators.required],
       type: [0, Validators.required],
       description: ['', Validators.required],
-      price: [0, Validators.required]
+      price: [0, Validators.required],
+      status: Room.FREE,
+      clean: true
     });
   }
 

@@ -26,7 +26,9 @@ export class EditComponent implements OnInit {
       number: ['', Validators.required],
       type: [0, Validators.required],
       description: ['', Validators.required],
-      price: [0, Validators.required]
+      price: [0, Validators.required],
+      status: Room.FREE,
+      clean: true
     });
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.roomService.getRoomById(this.id)
@@ -35,7 +37,9 @@ export class EditComponent implements OnInit {
           number: room.number,
           type: room.type,
           description: room.description,
-          price: room.price
+          price: room.price,
+          status: room.status,
+          clean: room.clean
         });
       });
   }
