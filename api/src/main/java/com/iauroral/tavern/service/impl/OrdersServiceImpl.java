@@ -7,13 +7,13 @@ import com.iauroral.tavern.repository.OrderServiceDetailRepository;
 import com.iauroral.tavern.repository.OrdersRepository;
 import com.iauroral.tavern.service.*;
 import com.iauroral.tavern.target.OrderTarget;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@org.springframework.stereotype.Service
 public class OrdersServiceImpl implements OrdersService {
 
     private final UserService userService;
@@ -89,7 +89,6 @@ public class OrdersServiceImpl implements OrdersService {
         return orderServiceDetailRepository.findAllByOrders_Id(orderId);
     }
 
-    // todo: 计算总价
     @Override
     public void createOrder(OrderTarget target) {
         Orders order = new Orders();
@@ -97,10 +96,15 @@ public class OrdersServiceImpl implements OrdersService {
         order.setStatus(Orders.NEW);
         ordersRepository.save(order);
 
+        BigDecimal totalPrice = new BigDecimal("0");
+
         OrderRoomDetail roomDetail = new OrderRoomDetail();
         roomDetail.setOrders(order);
-        roomDetail.setRoom(roomService.getRoomById(target.getRoomId()));
+        Room room = roomService.getRoomById(target.getRoomId());
+        roomDetail.setRoom(room);
         orderRoomDetailRepository.save(roomDetail);
+
+        totalPrice = totalPrice.add(room.getPrice());
 
         roomService.setOrder(target.getRoomId());
 
@@ -108,9 +112,12 @@ public class OrdersServiceImpl implements OrdersService {
         for (OrderTarget.CateringTarget cateringTarget : target.getCaterings()) {
             OrderCateringDetail cateringDetail = new OrderCateringDetail();
             cateringDetail.setOrders(order);
-            cateringDetail.setCatering(cateringService.getCateringById(cateringTarget.getCateringId()));
+            Catering catering = cateringService.getCateringById(cateringTarget.getCateringId());
+            cateringDetail.setCatering(catering);
             cateringDetail.setNumber(cateringTarget.getNumber());
             cateringDetails.add(cateringDetail);
+
+            totalPrice = totalPrice.add(catering.getPrice().multiply(new BigDecimal(cateringTarget.getNumber())));
         }
         orderCateringDetailRepository.saveAll(cateringDetails);
 
@@ -118,11 +125,17 @@ public class OrdersServiceImpl implements OrdersService {
         for (OrderTarget.ServiceTarget serviceTarget : target.getServices()) {
             OrderServiceDetail serviceDetail = new OrderServiceDetail();
             serviceDetail.setOrders(order);
-            serviceDetail.setService(serviceService.getServiceById(serviceTarget.getServiceId()));
+            Service service = serviceService.getServiceById(serviceTarget.getServiceId());
+            serviceDetail.setService(service);
             serviceDetail.setNumber(serviceTarget.getNumber());
             serviceDetails.add(serviceDetail);
+
+            totalPrice = totalPrice.add(service.getPrice().multiply(new BigDecimal(serviceTarget.getNumber())));
         }
         orderServiceDetailRepository.saveAll(serviceDetails);
+
+        order.setTotalPrice(totalPrice);
+        ordersRepository.save(order);
     }
 
     @Override

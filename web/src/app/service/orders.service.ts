@@ -26,4 +26,8 @@ export class OrdersService {
   cancel(id: number): Observable<void> {
     return this.httpClient.put<void>(`orders/cancel/${id}`, {});
   }
+
+  confirm(id: number): Observable<void> {
+    return this.httpClient.put<void>(`orders/confirm/${id}`, {});
+  }
 }

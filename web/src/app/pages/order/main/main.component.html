@@ -17,6 +17,7 @@
             <th>服务</th>
             <th>总价</th>
             <th>状态</th>
+            <th>预定时间</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -39,8 +40,9 @@
                 <small>{{ service.service.name }}({{ service.service.price }} 元) × {{ service.number }}</small>
               </p>
             </td>
-            <td>{{ order.totalPrice }}</td>
+            <td>{{ order.totalPrice }} 元</td>
             <td>{{ order.status | orderStatus }}</td>
+            <td>{{ order.reserve | date: 'yyyy年MM月dd日HH:mm' }}</td>
             <td>
               <button (click)="cancel(order)" *ngIf="order.status === 0" class="btn btn-sm btn-danger">取消预约</button>
             </td>

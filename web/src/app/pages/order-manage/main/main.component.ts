@@ -14,9 +14,21 @@ export class MainComponent implements OnInit {
   constructor(private ordersService: OrdersService) { }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
     this.ordersService.getAll()
       .subscribe((orders: Array<Orders>) => {
         this.orders = orders;
+      });
+  }
+
+  confirm(order: Orders) {
+    this.ordersService.confirm(order.id)
+      .subscribe(() => {
+        alert('入住办理成功');
+        this.load();
       });
   }
 

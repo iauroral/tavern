@@ -39,11 +39,11 @@
                 <small>{{ service.service.name }}({{ service.service.price }} 元) × {{ service.number }}</small>
               </p>
             </td>
-            <td>{{ order.totalPrice }}</td>
+            <td>{{ order.totalPrice }} 元</td>
             <td>{{ order.status | orderStatus }}</td>
-            <td>{{ order.reserve | date: 'yyyy年MM月dd日hh:mm' }}</td>
+            <td>{{ order.reserve | date: 'yyyy年MM月dd日HH:mm' }}</td>
             <td>
-              <button *ngIf="order.status === 0" class="btn btn-sm btn-primary">办理入住</button>
+              <button *ngIf="order.status === 0" (click)="confirm(order)" class="btn btn-sm btn-primary">办理入住</button>
             </td>
           </tr>
           </tbody>
