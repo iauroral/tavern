@@ -40,9 +40,9 @@
               </p>
             </td>
             <td>{{ order.totalPrice }}</td>
-            <td>{{ order.status }}</td>
+            <td>{{ order.status | orderStatus }}</td>
             <td>
-              取消预约
+              <button *ngIf="order.status === 0" class="btn btn-sm btn-danger">取消预约</button>
             </td>
           </tr>
           </tbody>
