@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  user: User;
+  user: User = new User();
 
   menus: Array<Menu> = new Array<Menu>();
   authority = '';
@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
         } else if (user.authority === User.FRONT) {
           this.authority = '酒店前台';
           this.menus.push(new Menu('查看客房状态', 'room-status', 'mdi mdi-home menu-icon'));
-          this.menus.push(new Menu('客户订单管理', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('客户订单管理', 'order-manage', 'mdi mdi-home menu-icon'));
         } else {
           this.authority = '酒店顾客';
           this.menus.push(new Menu('我的订单', 'order', 'mdi mdi-home menu-icon'));

@@ -49,6 +49,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/room-status/room-status.module').then(m => m.RoomStatusModule)
       },
       {
+        path: 'order-manage',
+        loadChildren: () => import('./pages/order-manage/order-manage.module').then(m => m.OrderManageModule)
+      },
+      {
         path: 'view',
         loadChildren: () => import('./pages/view/view.module').then(m => m.ViewModule)
       }

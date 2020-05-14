@@ -11,6 +11,10 @@ export class OrdersService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getAll(): Observable<Array<Orders>> {
+    return this.httpClient.get<Array<Orders>>('orders');
+  }
+
   getCustomAll(): Observable<Array<Orders>> {
     return this.httpClient.get<Array<Orders>>('orders/custom');
   }

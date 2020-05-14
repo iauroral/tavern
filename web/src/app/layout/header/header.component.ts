@@ -11,7 +11,7 @@ import { User } from '../../entity/user';
 })
 export class HeaderComponent implements OnInit {
 
-  user: User;
+  user: User = new User();
 
   constructor(private authService: AuthService,
               private userService: UserService,
