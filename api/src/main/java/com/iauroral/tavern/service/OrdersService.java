@@ -33,6 +33,11 @@ public interface OrdersService {
     void createOrder(OrderTarget target);
 
     /**
+     * 更新 编辑订单
+     */
+    void update(Long id, OrderTarget target);
+
+    /**
      * 办理入住 确定订单
      */
     void confirmOrder(Long orderId);
@@ -51,14 +56,4 @@ public interface OrdersService {
      * 顾客要求换房间
      */
     void changeRoom(Long orderId, Room roomId);
-
-    /**
-     * 点餐
-     */
-    void orderCatering(Long orderId, Long cateringId, Long number);
-
-    /**
-     * 点服务
-     */
-    void orderService(Long orderId, Long serviceId, Long number);
 }

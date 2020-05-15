@@ -23,6 +23,10 @@ export class OrdersService {
     return this.httpClient.post<void>('orders', order);
   }
 
+  update(id: number, order: OrderTarget): Observable<void> {
+    return this.httpClient.put<void>(`orders/${id}`, order);
+  }
+
   findById(id: number): Observable<Orders> {
     return this.httpClient.get<Orders>(`orders/${id}`);
   }

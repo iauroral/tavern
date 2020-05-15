@@ -163,6 +163,41 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public void update(Long id, OrderTarget target) {
+        Orders order = getOrderById(id);
+        BigDecimal totalPrice = order.getTotalPrice();
+
+        List<OrderCateringDetail> cateringDetails = new ArrayList<>();
+        for (OrderTarget.CateringTarget cateringTarget : target.getCaterings()) {
+            OrderCateringDetail cateringDetail = new OrderCateringDetail();
+            cateringDetail.setOrders(order);
+            Catering catering = cateringService.getCateringById(cateringTarget.getCateringId());
+            cateringDetail.setCatering(catering);
+            cateringDetail.setNumber(cateringTarget.getNumber());
+            cateringDetails.add(cateringDetail);
+
+            totalPrice = totalPrice.add(catering.getPrice().multiply(new BigDecimal(cateringTarget.getNumber())));
+        }
+        orderCateringDetailRepository.saveAll(cateringDetails);
+
+        List<OrderServiceDetail> serviceDetails = new ArrayList<>();
+        for (OrderTarget.ServiceTarget serviceTarget : target.getServices()) {
+            OrderServiceDetail serviceDetail = new OrderServiceDetail();
+            serviceDetail.setOrders(order);
+            Service service = serviceService.getServiceById(serviceTarget.getServiceId());
+            serviceDetail.setService(service);
+            serviceDetail.setNumber(serviceTarget.getNumber());
+            serviceDetails.add(serviceDetail);
+
+            totalPrice = totalPrice.add(service.getPrice().multiply(new BigDecimal(serviceTarget.getNumber())));
+        }
+        orderServiceDetailRepository.saveAll(serviceDetails);
+
+        order.setTotalPrice(totalPrice);
+        ordersRepository.save(order);
+    }
+
+    @Override
     public void confirmOrder(Long orderId) {
         Orders orders = getOrderById(orderId);
         orders.setEmployee(userService.getCurrentLoginUser());
@@ -193,16 +228,6 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void changeRoom(Long orderId, Room roomId) {
-
-    }
-
-    @Override
-    public void orderCatering(Long orderId, Long cateringId, Long number) {
-
-    }
-
-    @Override
-    public void orderService(Long orderId, Long serviceId, Long number) {
 
     }
 }

@@ -10,6 +10,7 @@ import { RoomService } from '../../../service/room.service';
 import { CateringService } from '../../../service/catering.service';
 import { ServiceService } from '../../../service/service.service';
 import { Orders } from '../../../entity/orders';
+import { CateringTarget, OrderTarget, ServiceTarget } from '../../../target/order';
 
 @Component({
   selector: 'app-edit',
@@ -18,7 +19,9 @@ import { Orders } from '../../../entity/orders';
 })
 export class EditComponent implements OnInit {
 
-  order: Orders = new Orders();
+  oldOrder: Orders = new Orders();
+
+  order: OrderTarget = new OrderTarget();
 
   room: Room = new Room();
   services: Array<Service> = new Array<Service>();
@@ -50,7 +53,7 @@ export class EditComponent implements OnInit {
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.ordersService.findById(this.id)
       .subscribe((order: Orders) => {
-        this.order = order;
+        this.oldOrder = order;
         this.room = order.orderRoomDetail.room;
         this.orderCaterings = order.orderCateringDetails;
         this.orderServices = order.orderServiceDetails;
@@ -66,7 +69,7 @@ export class EditComponent implements OnInit {
   }
 
   getTotalPrice() {
-    let total = this.order.totalPrice;
+    let total = this.oldOrder.totalPrice;
     for (const orderCatering of this.newOrderCaterings) {
       if (orderCatering.catering.id) {
         total += orderCatering.catering.price * orderCatering.number;
@@ -81,8 +84,17 @@ export class EditComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.newOrderCaterings);
-    console.log(this.newOrderServices);
+    for (const catering of this.newOrderCaterings) {
+      this.order.caterings.push(new CateringTarget(catering.catering.id, catering.number));
+    }
+    for (const service of this.newOrderServices) {
+      this.order.services.push(new ServiceTarget(service.service.id, service.number));
+    }
+    this.ordersService.update(this.id, this.order)
+      .subscribe(() => {
+        alert('订购成功');
+        this.router.navigateByUrl('order');
+      });
   }
 
 }
