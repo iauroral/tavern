@@ -3,11 +3,11 @@ import { Room } from '../../../entity/room';
 import { RoomService } from '../../../service/room.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  selector: 'app-room',
+  templateUrl: './room.component.html',
+  styleUrls: ['./room.component.css']
 })
-export class MainComponent implements OnInit {
+export class RoomComponent implements OnInit {
 
   rooms: Array<Room> = new Array<Room>();
 
@@ -24,11 +24,4 @@ export class MainComponent implements OnInit {
       });
   }
 
-  delete(room: Room) {
-    this.roomService.delete(room.id)
-      .subscribe(() => {
-        alert('删除成功');
-        this.load();
-      });
-  }
 }

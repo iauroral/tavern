@@ -35,9 +35,9 @@ export class MenuComponent implements OnInit {
           this.menus.push(new Menu('客房订阅报表', '', 'mdi mdi-home menu-icon'));
           this.menus.push(new Menu('消费订阅报表', '', 'mdi mdi-home menu-icon'));
           this.menus.push(new Menu('查看员工信息', 'view/employee', 'mdi mdi-home menu-icon'));
-          this.menus.push(new Menu('查看客房信息', '', 'mdi mdi-home menu-icon'));
-          this.menus.push(new Menu('查看餐饮信息', '', 'mdi mdi-home menu-icon'));
-          this.menus.push(new Menu('查看产品信息', '', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('查看客房信息', 'view/room', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('查看餐饮信息', 'view/catering', 'mdi mdi-home menu-icon'));
+          this.menus.push(new Menu('查看服务信息', 'view/service', 'mdi mdi-home menu-icon'));
         } else if (user.authority === User.FRONT) {
           this.authority = '酒店前台';
           this.menus.push(new Menu('查看客房状态', 'room-status', 'mdi mdi-home menu-icon'));
