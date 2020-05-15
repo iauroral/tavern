@@ -23,6 +23,11 @@ public interface OrdersService {
     List<Orders> getAllOrdersByCurrentLoginUser();
 
     /**
+     * 根据 id 查询订单
+     */
+    Orders queryOrderById(Long orderId);
+
+    /**
      * 预约 创建订单
      */
     void createOrder(OrderTarget target);

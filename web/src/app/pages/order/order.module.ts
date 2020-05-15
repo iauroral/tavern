@@ -5,9 +5,10 @@ import { MainComponent } from './main/main.component';
 import { AddComponent } from './add/add.component';
 import { FormsModule } from '@angular/forms';
 import { PipeModule } from '../../pipe/pipe.module';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
-  declarations: [MainComponent, AddComponent],
+  declarations: [MainComponent, AddComponent, EditComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,

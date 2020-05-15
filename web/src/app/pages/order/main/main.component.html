@@ -45,6 +45,7 @@
             <td>{{ order.reserve | date: 'yyyy年MM月dd日HH:mm' }}</td>
             <td>
               <button (click)="cancel(order)" *ngIf="order.status === 0" class="btn btn-sm btn-danger">取消预约</button>
+              <a routerLink="/order/edit/{{ order.id }}" *ngIf="order.status === 1" class="btn btn-sm btn-success">附加服务</a>
             </td>
           </tr>
           </tbody>

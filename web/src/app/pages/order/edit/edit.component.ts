@@ -1,43 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrdersService } from '../../../service/orders.service';
 import { Room } from '../../../entity/room';
-import { RoomService } from '../../../service/room.service';
+import { Service } from '../../../entity/service';
+import { Catering } from '../../../entity/catering';
 import { OrdersCateringDetail } from '../../../entity/orders-catering-detail';
 import { OrdersServiceDetail } from '../../../entity/orders-service-detail';
-import { Catering } from '../../../entity/catering';
+import { RoomService } from '../../../service/room.service';
 import { CateringService } from '../../../service/catering.service';
-import { Service } from '../../../entity/service';
 import { ServiceService } from '../../../service/service.service';
-import { CateringTarget, OrderTarget, ServiceTarget } from '../../../target/order';
+import { Orders } from '../../../entity/orders';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css']
 })
-export class AddComponent implements OnInit {
+export class EditComponent implements OnInit {
+
+  order: Orders = new Orders();
 
   room: Room = new Room();
-  rooms: Array<Room> = new Array<Room>();
   services: Array<Service> = new Array<Service>();
   caterings: Array<Catering> = new Array<Catering>();
   orderCaterings: Array<OrdersCateringDetail> = new Array<OrdersCateringDetail>();
   orderServices: Array<OrdersServiceDetail> = new Array<OrdersServiceDetail>();
 
-  order: OrderTarget = new OrderTarget();
+  newOrderCaterings: Array<OrdersCateringDetail> = new Array<OrdersCateringDetail>();
+  newOrderServices: Array<OrdersServiceDetail> = new Array<OrdersServiceDetail>();
+
+  private id: number;
 
   constructor(private ordersService: OrdersService,
               private roomService: RoomService,
               private cateringService: CateringService,
               private serviceService: ServiceService,
-              private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.roomService.getRoomByStatus(Room.FREE)
-      .subscribe((rooms: Array<Room>) => {
-        this.rooms = rooms;
-      });
     this.cateringService.getAll()
       .subscribe((data: any) => {
         this.caterings = data._embedded.caterings.reverse();
@@ -46,46 +47,42 @@ export class AddComponent implements OnInit {
       .subscribe((data: any) => {
         this.services = data._embedded.services.reverse();
       });
-  }
-
-  submit() {
-    this.order.roomId = this.room.id;
-    for (const catering of this.orderCaterings) {
-      this.order.caterings.push(new CateringTarget(catering.catering.id, catering.number));
-    }
-    for (const service of this.orderServices) {
-      this.order.services.push(new ServiceTarget(service.service.id, service.number));
-    }
-    this.ordersService.save(this.order)
-      .subscribe(() => {
-        alert('预约成功');
-        this.router.navigateByUrl('order');
+    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.ordersService.findById(this.id)
+      .subscribe((order: Orders) => {
+        this.order = order;
+        this.room = order.orderRoomDetail.room;
+        this.orderCaterings = order.orderCateringDetails;
+        this.orderServices = order.orderServiceDetails;
       });
   }
 
   newCatering() {
-    this.orderCaterings.push(new OrdersCateringDetail());
+    this.newOrderCaterings.push(new OrdersCateringDetail());
   }
 
   newService() {
-    this.orderServices.push(new OrdersServiceDetail());
+    this.newOrderServices.push(new OrdersServiceDetail());
   }
 
   getTotalPrice() {
-    let total = 0;
-    if (this.room.id) {
-      total += this.room.price;
-    }
-    for (const orderCatering of this.orderCaterings) {
+    let total = this.order.totalPrice;
+    for (const orderCatering of this.newOrderCaterings) {
       if (orderCatering.catering.id) {
         total += orderCatering.catering.price * orderCatering.number;
       }
     }
-    for (const orderService of this.orderServices) {
+    for (const orderService of this.newOrderServices) {
       if (orderService.service.id) {
         total += orderService.service.price * orderService.number;
       }
     }
     return total;
   }
+
+  submit() {
+    console.log(this.newOrderCaterings);
+    console.log(this.newOrderServices);
+  }
+
 }

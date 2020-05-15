@@ -52,6 +52,30 @@ public class OrdersServiceImpl implements OrdersService {
         return query(ordersRepository.findAllByCustom_Id(id));
     }
 
+    @Override
+    public Orders queryOrderById(Long orderId) {
+        Orders order = this.getOrderById(orderId);
+
+        OrderRoomDetail roomDetail = this.orderRoomDetail(orderId);
+        if (roomDetail != null) {
+            roomDetail.setOrders(null);
+            order.setOrderRoomDetail(roomDetail);
+        }
+
+        List<OrderCateringDetail> cateringDetails = this.orderCateringDetails(orderId);
+        for (OrderCateringDetail cateringDetail : cateringDetails) {
+            cateringDetail.setOrders(null);
+        }
+        order.setOrderCateringDetails(cateringDetails);
+
+        List<OrderServiceDetail> serviceDetails = this.orderServiceDetails(orderId);
+        for (OrderServiceDetail serviceDetail : serviceDetails) {
+            serviceDetail.setOrders(null);
+        }
+        order.setOrderServiceDetails(serviceDetails);
+        return order;
+    }
+
     private List<Orders> query(List<Orders> orders) {
         for (Orders order : orders) {
             Long orderId = order.getId();
