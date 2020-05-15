@@ -53,6 +53,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/order-manage/order-manage.module').then(m => m.OrderManageModule)
       },
       {
+        path: 'order-catering',
+        loadChildren: () => import('./pages/order-catering/order-catering.module').then(m => m.OrderCateringModule)
+      },
+      {
         path: 'view',
         loadChildren: () => import('./pages/view/view.module').then(m => m.ViewModule)
       }
