@@ -23,6 +23,11 @@ public class OrderServiceDetail {
     @CreationTimestamp
     private Calendar createTime;
 
+    private Boolean provide;
+
+    @Transient
+    private Room room;
+
     public OrderServiceDetail() {
     }
 
@@ -64,5 +69,21 @@ public class OrderServiceDetail {
 
     public void setCreateTime(Calendar createTime) {
         this.createTime = createTime;
+    }
+
+    public Boolean getProvide() {
+        return provide;
+    }
+
+    public void setProvide(Boolean provide) {
+        this.provide = provide;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }
