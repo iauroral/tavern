@@ -8,4 +8,6 @@ import java.util.List;
 public interface OrderCateringDetailRepository extends CrudRepository<OrderCateringDetail, Long> {
 
     List<OrderCateringDetail> findAllByOrders_Id(Long orderId);
+
+    List<OrderCateringDetail> findAllByOrders_Status(Integer status);
 }

@@ -23,6 +23,8 @@ public class OrderCateringDetail {
     @CreationTimestamp
     private Calendar createTime;
 
+    private Boolean provide = false;
+
     public OrderCateringDetail() {
     }
 
@@ -64,5 +66,13 @@ public class OrderCateringDetail {
 
     public void setCreateTime(Calendar createTime) {
         this.createTime = createTime;
+    }
+
+    public Boolean getProvide() {
+        return provide;
+    }
+
+    public void setProvide(Boolean provide) {
+        this.provide = provide;
     }
 }
