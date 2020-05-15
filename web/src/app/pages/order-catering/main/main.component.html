@@ -1,1 +1,35 @@
-<p>main works!</p>
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">订阅餐饮管理</h4>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>餐饮信息</th>
+            <th>房间号</th>
+            <th>订阅时间</th>
+            <th>配送状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let orderCatering of orderCaterings.reverse(); index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ orderCatering.catering.name }}({{ orderCatering.catering.price }} 元) × {{ orderCatering.number }}</td>
+            <td>测试房间</td>
+            <td>{{ orderCatering.createTime | date: 'yyyy年MM月dd日HH:mm' }}</td>
+            <td>{{ orderCatering.provide }}</td>
+            <td>
+              配送完成
+<!--              <button *ngIf="order.status === 0" (click)="confirm(order)" class="btn btn-sm btn-primary">办理入住</button>-->
+<!--              <button *ngIf="order.status === 1" (click)="finish(order)" class="btn btn-sm btn-info">办结退房</button>-->
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
