@@ -7,9 +7,10 @@ import { RoomStatusPipe } from './room-status/room-status.pipe';
 import { CleanPipe } from './clean/clean.pipe';
 import { OrderStatusPipe } from './order-status/order-status.pipe';
 import { CateringSendPipe } from './catering-send/catering-send.pipe';
+import { ServiceSendPipe } from './service-send/service-send.pipe';
 
 @NgModule({
-    declarations: [SexPipe, AuthorityPipe, RoomTypePipe, RoomStatusPipe, CleanPipe, OrderStatusPipe, CateringSendPipe],
+    declarations: [SexPipe, AuthorityPipe, RoomTypePipe, RoomStatusPipe, CleanPipe, OrderStatusPipe, CateringSendPipe, ServiceSendPipe],
     exports: [
         SexPipe,
         AuthorityPipe,
@@ -17,7 +18,8 @@ import { CateringSendPipe } from './catering-send/catering-send.pipe';
         RoomStatusPipe,
         CleanPipe,
         OrderStatusPipe,
-        CateringSendPipe
+        CateringSendPipe,
+        ServiceSendPipe
     ],
     imports: [
         CommonModule

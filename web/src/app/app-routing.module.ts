@@ -57,6 +57,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/order-catering/order-catering.module').then(m => m.OrderCateringModule)
       },
       {
+        path: 'order-service',
+        loadChildren: () => import('./pages/order-service/order-service.module').then(m => m.OrderServiceModule)
+      },
+      {
         path: 'view',
         loadChildren: () => import('./pages/view/view.module').then(m => m.ViewModule)
       }

@@ -1,4 +1,6 @@
 import { Service } from './service';
+import { Orders } from './orders';
+import { Room } from './room';
 
 export class OrdersServiceDetail {
 
@@ -7,6 +9,14 @@ export class OrdersServiceDetail {
   service: Service;
 
   number: number;
+
+  orders: Orders;
+
+  createTime: string;
+
+  provide: boolean;
+
+  room: Room;
 
   constructor() {
     this.service = new Service();
