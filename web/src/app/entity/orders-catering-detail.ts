@@ -1,5 +1,6 @@
 import { Catering } from './catering';
 import { Orders } from './orders';
+import { Room } from './room';
 
 export class OrdersCateringDetail {
 
@@ -14,6 +15,8 @@ export class OrdersCateringDetail {
   createTime: string;
 
   provide: boolean;
+
+  room: Room;
 
   constructor() {
     this.catering = new Catering();

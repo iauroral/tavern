@@ -25,6 +25,9 @@ public class OrderCateringDetail {
 
     private Boolean provide = false;
 
+    @Transient
+    private Room room;
+
     public OrderCateringDetail() {
     }
 
@@ -74,5 +77,13 @@ public class OrderCateringDetail {
 
     public void setProvide(Boolean provide) {
         this.provide = provide;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

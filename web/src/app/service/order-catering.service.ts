@@ -13,4 +13,8 @@ export class OrderCateringService {
   getAll(): Observable<Array<OrdersCateringDetail>> {
     return this.httpClient.get<Array<OrdersCateringDetail>>('order-catering');
   }
+
+  send(id: number): Observable<void> {
+    return this.httpClient.put<void>(`order-catering/${id}`, {});
+  }
 }

@@ -18,13 +18,11 @@
           <tr *ngFor="let orderCatering of orderCaterings.reverse(); index as i">
             <td>{{ i + 1 }}</td>
             <td>{{ orderCatering.catering.name }}({{ orderCatering.catering.price }} 元) × {{ orderCatering.number }}</td>
-            <td>测试房间</td>
+            <td>{{ orderCatering.room.number }}</td>
             <td>{{ orderCatering.createTime | date: 'yyyy年MM月dd日HH:mm' }}</td>
-            <td>{{ orderCatering.provide }}</td>
+            <td>{{ orderCatering.provide | cateringSend }}</td>
             <td>
-              配送完成
-<!--              <button *ngIf="order.status === 0" (click)="confirm(order)" class="btn btn-sm btn-primary">办理入住</button>-->
-<!--              <button *ngIf="order.status === 1" (click)="finish(order)" class="btn btn-sm btn-info">办结退房</button>-->
+              <button *ngIf="!orderCatering.provide" (click)="send(orderCatering)" class="btn btn-sm btn-info">配送完成</button>
             </td>
           </tr>
           </tbody>

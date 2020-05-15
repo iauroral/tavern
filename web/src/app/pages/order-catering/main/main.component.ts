@@ -14,11 +14,21 @@ export class MainComponent implements OnInit {
   constructor(private orderCateringService: OrderCateringService) { }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
     this.orderCateringService.getAll()
       .subscribe((caterings: Array<OrdersCateringDetail>) => {
         this.orderCaterings = caterings;
-        console.log(caterings);
       });
   }
 
+  send(orderCatering: OrdersCateringDetail) {
+    this.orderCateringService.send(orderCatering.id)
+      .subscribe(() => {
+        alert('配送状态更新成功');
+        this.load();
+      });
+  }
 }

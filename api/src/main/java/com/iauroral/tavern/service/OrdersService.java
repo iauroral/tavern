@@ -1,5 +1,6 @@
 package com.iauroral.tavern.service;
 
+import com.iauroral.tavern.entity.OrderRoomDetail;
 import com.iauroral.tavern.entity.Orders;
 import com.iauroral.tavern.entity.Room;
 import com.iauroral.tavern.target.OrderTarget;
@@ -16,6 +17,8 @@ public interface OrdersService {
      * 查询所有订单
      */
     List<Orders> getAllOrders();
+
+    OrderRoomDetail orderRoomDetail(Long orderId);
 
     /**
      * 查询属于当前登录用户的所有订单

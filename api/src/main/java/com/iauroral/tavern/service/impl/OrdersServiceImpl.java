@@ -101,7 +101,8 @@ public class OrdersServiceImpl implements OrdersService {
         return orders;
     }
 
-    private OrderRoomDetail orderRoomDetail(Long orderId) {
+    @Override
+    public OrderRoomDetail orderRoomDetail(Long orderId) {
         return orderRoomDetailRepository.findOrderRoomDetailByOrders_Id(orderId);
     }
 
